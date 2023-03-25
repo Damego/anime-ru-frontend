@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import Header from "@/app/components/header";
+import TitleCard from "@/app/components/titleCard";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -25,6 +26,14 @@ export default function Home() {
   return (
     <main>
       <Header />
+
+      <TitleCard
+        imageUrl={
+          "https://animego.org/upload/anime/images/63f85d883089f370485553.jpg"
+        }
+        titleName={"Ангел по соседству меня ужасно балует!"}
+        url={"#"}
+      />
     </main>
   );
 }
