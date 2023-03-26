@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <div className="flex flex-row justify-between bg-white shadow-md h-12">
+    <div className="flex h-12 flex-row justify-between bg-white shadow-md">
       <div className="ml-2 self-center">
         <a>Аниме ру</a>
       </div>
@@ -11,7 +11,7 @@ export default function Header() {
         name={"search"}
         id={"search"}
         className={
-          "w-1/2 rounded-full border-2 border-slate-150 focus:outline-none focus:border-slate-500 h-8 self-center pl-2"
+          "border-slate-150 h-8 w-1/2 self-center rounded-full border-2 pl-2 focus:border-slate-500 focus:outline-none"
         }
       />
 
