@@ -33,6 +33,7 @@ export default function Home() {
         }
         titleName={"Ангел по соседству меня ужасно балует!"}
         url={"#"}
+        score={9.1}
       />
     </main>
   );
