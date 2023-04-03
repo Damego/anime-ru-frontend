@@ -5,7 +5,7 @@ function Option({ name, value, checked, onClick }) {
     <div
       onClick={() => onClick(value)}
       className={
-        "py-1 pl-2 hover:cursor-pointer " +
+        "py-1 pl-2 " +
         (checked === true
           ? "bg-red-500 text-white hover:bg-red-400"
           : "hover:bg-red-100")
@@ -16,50 +16,53 @@ function Option({ name, value, checked, onClick }) {
   );
 }
 
-function Menu({ options }) {
-  const [selectedOptions, changeSelectedOptions] = useState([]);
-
-  const onOptionClick = (value) => {
-    if (selectedOptions.includes(value)) {
-      changeSelectedOptions(selectedOptions.filter((item) => item !== value));
-    } else {
-      changeSelectedOptions([...selectedOptions, value]);
-    }
-  };
-
+function Menu({ options, selectedOptionValues, onOptionSelect }) {
   return (
     <div
       className={
-        "border-slate-150 mt-2 max-h-48 w-full select-none overflow-y-scroll border-2 text-xl shadow-md"
+        "border-slate-150 mt-2 max-h-48 overflow-y-scroll border-2 text-xl shadow-md"
       }
     >
       {options.map(({ name, value }) => (
         <Option
           name={name}
           value={value}
-          checked={selectedOptions.includes(value)}
-          onClick={onOptionClick}
-          key={value}
+          checked={selectedOptionValues.includes(value)}
+          onClick={onOptionSelect}
+          key={name + value}
         />
       ))}
     </div>
   );
 }
 
-export default function Select({ options }) {
+export default function Select({ options, selectedOptions, onOptionSelect }) {
   const [isOpened, toggleOpened] = useState(false);
 
+  const stringSelectedOptions = selectedOptions
+    .map((option) => option.name)
+    .join(", ")
+    .toLowerCase();
+
   return (
-    <div>
+    <div className={"w-full select-none hover:cursor-pointer"}>
       <div
         onClick={() => toggleOpened(!isOpened)}
         className={
-          "border-slate-150 h-10 w-full select-none border-2 pl-2 text-xl shadow-md hover:cursor-pointer"
+          "border-slate-150 h-10 truncate text-ellipsis border-2 pl-2 pr-2 py-1 text-xl shadow-md"
         }
       >
-        {"Выберите жанр"}
+        {selectedOptions.length !== 0 ? stringSelectedOptions : "Выберите жанр"}
       </div>
-      {isOpened ? <Menu options={options} /> : <></>}
+      {isOpened ? (
+        <Menu
+          options={options}
+          selectedOptionValues={selectedOptions.map((option) => option.value)}
+          onOptionSelect={onOptionSelect}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
