@@ -4,7 +4,7 @@ export default function Container({ titles }) {
   return (
     <div
       className={
-        "flex flex-row flex-wrap content-start gap-4 border-2"
+        "flex flex-row flex-wrap content-start gap-4 w-4/5"
       }
     >
       {titles.map((title) => (
