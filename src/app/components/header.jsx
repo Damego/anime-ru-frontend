@@ -1,4 +1,10 @@
-export default function Header() {
+"use client";
+
+import { useRouter } from 'next/navigation';
+
+export default function Header({isAuthorized}) {
+  const router = useRouter();
+
   return (
     <div className="flex h-12 flex-row justify-between bg-white shadow-md">
       <div className="ml-2 self-center">
@@ -16,7 +22,7 @@ export default function Header() {
       />
 
       <div className="mr-2 self-center">
-        <a>Вход</a>
+        {!isAuthorized ? <div onClick={() => router.push("/auth")}>Вход</div> : <></>}
       </div>
     </div>
   );
