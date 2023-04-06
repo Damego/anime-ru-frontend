@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
-
-const inputClassName = "border-2";
+import { useState } from "react";
 import httpClient from "@/app/api/httpClient";
 
+const inputClassName = "border-2";
 
 function LoginForm({ setLoginInput, setPasswordInput, makeAuth }) {
   return (

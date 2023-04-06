@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import Header from "@/app/components/header";
@@ -86,7 +85,6 @@ const titles = [
 
 export default function Home() {
   const [data, setData] = useState([]);
-  const [isLoaded, setLoaded] = useState(false);
   const [selectedGenres, changeGenres] = useState([]);
   const [loadedGenres, changeLoadedGenres] = useState([]);
   const [sortType, setSortType] = useState("a");
@@ -110,8 +108,6 @@ export default function Home() {
 
   const onSortClick = (type) => {
     setSortType(type);
-
-
   };
 
   const onGenreSelect = (selectedGenreValue) => {
