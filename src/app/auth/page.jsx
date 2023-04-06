@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import httpClient from "@/app/api/httpClient";
+import httpClient from "@/app/utils/httpClient";
 
 const inputClassName = "border-2";
 

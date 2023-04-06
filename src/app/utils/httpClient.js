@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 class HTTPClient {
   constructor() {
     this.instance = axios.create({
