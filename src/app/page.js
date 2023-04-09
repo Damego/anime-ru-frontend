@@ -94,11 +94,16 @@ const predefinedGenres = [
 export default async function Home({searchParams}) {
   console.log(searchParams);
   const sessionID = cookies().get("session_id");
+  const genres = predefinedGenres //  await httpClient.getGenreList()
+  // I know we can use usememo hook but ehh...
+  let selectedGenres = []
+  if (searchParams.genres !== undefined) {
+    const selectedGenreValues = searchParams.genres.split(',').map(strGenre => Number(strGenre));
+    selectedGenres = genres.filter(genre => selectedGenreValues.includes(genre.id));    
+  }
 
-  // TODO: parse searchParams
   // I'm not at home rn so I don't have good pc to run both front and back
   const animeTitles = titles // await httpClient.getAnimeList()
-  const genres = predefinedGenres //  await httpClient.getGenreList()
   const user = null // await httpClient.getMe();
 
   return (
@@ -108,7 +113,8 @@ export default async function Home({searchParams}) {
       <div className={"ml-6 mt-10 mr-6 flex flex-row gap-4"}>
         <Container titles={animeTitles} />
         <FilterMenu
-          genres={genres.map(({name, id}) => ({name, value: id}))}
+          selectGenres={selectedGenres.map(({name, id}) => ({name, value: id}))}
+          loadedGenres={genres.map(({name, id}) => ({name, value: id}))}
         />
       </div>
     </main>

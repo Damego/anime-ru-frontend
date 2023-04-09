@@ -20,10 +20,10 @@ const SortButton = ({text, sort, allowNull, currentSort, onClick}) => {
 }
   
 
-export default function FilterMenu({genres}) {
+export default function FilterMenu({selectGenres, loadedGenres}) {
   const router = useRouter();
   
-  const [selectedGenres, changeGenres] = useState([]);
+  const [selectedGenres, changeGenres] = useState(selectGenres);
   const [sortType, setSortType] = useState(null);
 
   const onSortClick = (type) => {
@@ -32,7 +32,7 @@ export default function FilterMenu({genres}) {
 
   const onGenreSelect = (selectedGenreValue) => {
     // todo: cursed codeeee
-    const [selectedGenre] = genres.filter(
+    const [selectedGenre] = loadedGenres.filter(
       (genre) => genre.value === selectedGenreValue
     );
 
@@ -45,14 +45,11 @@ export default function FilterMenu({genres}) {
 
   useEffect(() => {
     const genreValues = selectedGenres.map(genre => genre.value);
-
-    // why builtin urlsearchparams doesn't filter it?
     const params = {};
     if (sortType !== null) params.sort = sortType;
     if (genreValues.length !== 0) params.genres = genreValues;
 
     const queryString = new URLSearchParams(params).toString()
-
     router.push("?" + queryString);
 
   }, [selectedGenres, sortType]);
@@ -76,7 +73,7 @@ export default function FilterMenu({genres}) {
         <span className={"font-medium"}>Фильтр</span>
 
         <Select
-          options={genres}
+          options={loadedGenres}
           selectedOptions={selectedGenres}
           onOptionSelect={onGenreSelect}
         />
