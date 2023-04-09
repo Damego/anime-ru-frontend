@@ -37,17 +37,17 @@ function Menu({ options, selectedOptionValues, onOptionSelect }) {
 }
 
 export default function Select({ options, selectedOptions, onOptionSelect }) {
-  const [isOpened, toggleOpened] = useState(false);
-
+  const [isOpened, setOpened] = useState(false);
+  const toggleOpened = () => setOpened(!isOpened);
   const stringSelectedOptions = selectedOptions
-    .map((option) => option.name)
+    .map(option => option.name)
     .join(", ")
     .toLowerCase();
 
   return (
     <div className={"w-full select-none hover:cursor-pointer"}>
       <div
-        onClick={() => toggleOpened(!isOpened)}
+        onClick={() => toggleOpened()}
         className={
           "border-slate-150 h-10 truncate text-ellipsis border-2 pl-2 pr-2 py-1 text-xl shadow-md"
         }

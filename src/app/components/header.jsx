@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-export default function Header({isAuthorized}) {
+export default function Header({username}) {
   const router = useRouter();
 
   return (
@@ -22,7 +22,8 @@ export default function Header({isAuthorized}) {
       />
 
       <div className="mr-2 self-center">
-        {!isAuthorized ? <div onClick={() => router.push("/auth")}>Вход</div> : <></>}
+        {/* TODO: maybe better use tag `a`? */}
+        {!username ? <div onClick={() => router.push("/auth")}>Вход</div> : username}
       </div>
     </div>
   );
