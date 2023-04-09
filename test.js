@@ -1,5 +1,4 @@
-const arr = [];
+const params = '1,2,3'
+const array = params.split(',').map(strGenre => Number(strGenre));
 
-const n = arr.map(opt => opt.name).join(", ").toLowerCase()
-
-console.log(n);
+console.log(array.toString())

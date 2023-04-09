@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 
 function Option({ name, value, checked, onClick }) {
