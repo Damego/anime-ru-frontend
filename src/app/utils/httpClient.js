@@ -47,6 +47,16 @@ class HTTPClient {
   async getMe() {
     return this.request("GET", "/users/me", {})
   }
+
+  async addAnime({name, description, genres, imageFile}) {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("description", description)
+    data.append("genres", genres.toString());
+    data.append("image_file", imageFile);
+
+    return this.request("POST", "/anime", {data});
+  }
 }
 
 const httpClient = new HTTPClient();
