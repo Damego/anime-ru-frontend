@@ -1,8 +1,9 @@
 "use client"
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import Select from "@/app/components/Select";
+import buildQueryString from "@/app/utils/buildQueryString";
 
 const activeTextClass = "text-red-500 underline underline-offset-2";
 const defaultTextClass =
@@ -22,7 +23,8 @@ const SortButton = ({text, sort, allowNull, currentSort, onClick}) => {
 
 export default function FilterMenu({selectGenres, loadedGenres}) {
   const router = useRouter();
-  
+  const searchParams = useSearchParams();
+
   const [selectedGenres, changeGenres] = useState(selectGenres);
   const [sortType, setSortType] = useState(null);
 
@@ -49,8 +51,10 @@ export default function FilterMenu({selectGenres, loadedGenres}) {
     if (sortType !== null) params.sort = sortType;
     if (genreValues.length !== 0) params.genres = genreValues;
 
-    const queryString = new URLSearchParams(params).toString()
-    router.push("?" + queryString);
+    const search = searchParams.get("search")
+    const queryString = buildQueryString({...params, search})
+
+    router.push(queryString);
 
   }, [selectedGenres, sortType]);
 
