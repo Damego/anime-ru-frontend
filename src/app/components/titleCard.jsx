@@ -1,6 +1,13 @@
 import Image from "next/image";
 
-export default function TitleCard({ imageUrl, name, url, score }) {
+export default function TitleCard({ image_url, name, url, average_rating }) {
+  const scoreLabel = (
+    <span
+      className={
+        "absolute top-5 right-0 rounded-l-lg border-2 border-y-yellow-400 border-l-yellow-400 border-r-yellow-300 bg-yellow-300 pr-3 pl-2 font-medium"
+      }
+    >{`★ ${average_rating}`}</span>
+  )
   return (
     <div
       className={
@@ -8,13 +15,9 @@ export default function TitleCard({ imageUrl, name, url, score }) {
       }
     >
       <div className={"relative"}>
-        <span
-          className={
-            "absolute top-5 right-0 rounded-l-lg border-2 border-y-yellow-400 border-l-yellow-400 border-r-yellow-300 bg-yellow-300 pr-3 pl-2 font-medium"
-          }
-        >{`★ ${score}`}</span>
+        {average_rating !== null ? scoreLabel : ""}
         <Image
-          src={imageUrl}
+          src={image_url}
           alt={name}
           width={260}
           height={200}
