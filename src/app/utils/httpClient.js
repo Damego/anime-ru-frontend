@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 
 class HTTPClient {
   constructor() {
@@ -8,13 +8,33 @@ class HTTPClient {
     })
   }
 
+  /**
+   *
+   * @param {String} method
+   * @param {String} endpoint
+   * @param {FormData} data
+   * @param {Object} params
+   * @param {File} file
+   */
   async request(method, endpoint, {data, params}) {
-    const response = await this.instance.request({
+    console.log(params)
+    /*
+    * {AxiosRequestConfig} config
+     */
+    const config = {
       method,
       url: endpoint,
       params,
-      data
-    })
+      data,
+    }
+
+    if (data instanceof FormData) {
+      config.headers = {
+        "Content-Type": "multipart/form-data"
+      }
+    }
+
+    const response = await this.instance.request(config)
     return response.data;
   }
 
@@ -48,7 +68,7 @@ class HTTPClient {
     return this.request("GET", "/users/me", {})
   }
 
-  async addAnime({name, description, genres, imageFile}) {
+  async addAnime(name, description, genres, imageFile) {
     const data = new FormData();
     data.append("name", name);
     data.append("description", description)
