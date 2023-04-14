@@ -38,8 +38,8 @@ class HTTPClient {
     return response.data;
   }
 
-  async getAnimeList(sort, genres) {
-    return this.request("GET", "/anime/list", {params: {sort, genres}})
+  async getAnimeList(sort, genres, search) {
+    return this.request("GET", "/anime/list", {params: {sort, genres, search}})
   }
 
   async getGenreList() {
