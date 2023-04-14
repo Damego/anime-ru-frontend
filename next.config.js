@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["animego.org"]
+    domains: ["animego.org", "ik.imagekit.io", "imagekit.io"]
   }
 }
 
