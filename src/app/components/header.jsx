@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import buildQueryString from "../utils/buildQueryString"
 
-export default function Header({ username }) {
+export default function Header({ user }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchText, changeSearchText] = useState("");
@@ -36,10 +36,10 @@ export default function Header({ username }) {
 
         <div className="mr-2 self-center">
           {/* TODO: maybe better use tag `a`? */}
-          {!username ? (
+          {!user ? (
             <div onClick={() => router.push("/auth")}>Вход</div>
           ) : (
-            username
+            user.name
           )}
         </div>
       </div>
