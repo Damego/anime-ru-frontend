@@ -17,25 +17,35 @@ export default async function Home({ searchParams }) {
 
   const genres = await httpClient.getGenreList();
   // I know we can use usememo hook but ehh...
-  let selectedGenres = []
+  let selectedGenres = [];
   if (searchParams.genres !== undefined) {
-    const selectedGenreValues = searchParams.genres.split(',').map(strGenre => Number(strGenre));
-    selectedGenres = genres.filter(genre => selectedGenreValues.includes(genre.id));    
+    const selectedGenreValues = searchParams.genres
+      .split(",")
+      .map((strGenre) => Number(strGenre));
+    selectedGenres = genres.filter((genre) =>
+      selectedGenreValues.includes(genre.id)
+    );
   }
-  const {sort, search} = searchParams;
+  const { sort, search } = searchParams;
 
-  const animeTitles = await httpClient.getAnimeList(sort, selectedGenres.map(genre => genre.id).toString(), search)
-  // const user = await httpClient.getMe();
+  const animeTitles = await httpClient.getAnimeList(
+    sort,
+    selectedGenres.map((genre) => genre.id).toString(),
+    search
+  );
 
   return (
     <main>
-      <Header username={undefined}/>
+      <Header user={user} />
 
       <div className={"ml-6 mt-10 mr-6 flex flex-row gap-4"}>
         <Container titles={animeTitles} />
         <FilterMenu
-          selectGenres={selectedGenres.map(({name, id}) => ({name, value: id}))}
-          loadedGenres={genres.map(({name, id}) => ({name, value: id}))}
+          selectGenres={selectedGenres.map(({ name, id }) => ({
+            name,
+            value: id,
+          }))}
+          loadedGenres={genres.map(({ name, id }) => ({ name, value: id }))}
         />
       </div>
     </main>
