@@ -83,6 +83,26 @@ class HTTPClient {
   async getAnimeData(animeID) {
     return this.request("GET", `/anime/${animeID}`, {})
   }
+
+  async getFullAnimeData(animeID) {
+    return this.request("GET", `/anime/${animeID}`, {params: {rating: "all", with_genres: true}})
+  }
+
+  async addRating(animeID, score, scoreStory, scoreDrawing, scoreCharacters, reviewText) {
+    const form = new FormData();
+    form.append("anime_id", animeID);
+    form.append("score", score);
+    form.append("score_by_story", scoreStory);
+    form.append("score_by_drawing", scoreDrawing);
+    form.append("score_by_characters", scoreCharacters);
+    form.append("review", reviewText);
+
+    return this.request("POST", "/rating", {data: form})
+  }
+
+  async getRating(animeID) {
+    return this.request("GET", "/rating", {params: {anime_id: animeID}})
+  }
 }
 
 const httpClient = new HTTPClient();
