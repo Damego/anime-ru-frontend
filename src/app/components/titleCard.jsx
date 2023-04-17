@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 
-export default function TitleCard({ image_url, name, url, average_rating }) {
+export default function TitleCard({ image_url, name, url, average_rating, id }) {
+  const router = useRouter()
   const scoreLabel = (
     <span
       className={
@@ -10,8 +13,9 @@ export default function TitleCard({ image_url, name, url, average_rating }) {
   )
   return (
     <div
+      onClick={() => router.push(`/anime/${id}`)}
       className={
-        "border-1 w-64 rounded-lg bg-white pb-4 shadow-md transition hover:shadow-lg"
+        "border-1 w-64 rounded-lg bg-white pb-4 shadow-md transition hover:shadow-lg hover:cursor-pointer"
       }
     >
       <div className={"relative"}>
