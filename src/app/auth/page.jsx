@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import httpClient from "@/app/utils/httpClient";
+import {useRouter} from "next/navigation";
 
 const inputClassName = "border-2";
 
@@ -58,6 +59,7 @@ function RegisterForm({
 }
 
 export default function Page() {
+  const router = useRouter()
   const [isLoginForm, toggleForm] = useState(true);
   const [loginInput, setLoginInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
@@ -65,10 +67,11 @@ export default function Page() {
 
   const login = async () => {
     await httpClient.login(loginInput, passwordInput);
+    router.push("/")
   };
 
   const register = async () => {
-    const response = await httpClient.register(loginInput, emailInput, passwordInput);
+    await httpClient.register(loginInput, emailInput, passwordInput);
   };
 
   return (

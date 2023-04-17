@@ -2,9 +2,32 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import buildQueryString from "../utils/buildQueryString"
+import buildQueryString from "../utils/buildQueryString";
 
-export default function Header({ user }) {
+export function Header({user}) {
+  const router = useRouter();
+
+  return (
+    <div>
+      <div className="flex h-12 flex-row justify-between bg-white shadow-md">
+        <div className="ml-2 self-center">
+          <a href={"/"}>Аниме ру</a>
+        </div>
+
+        <div className="mr-2 self-center">
+          {/* TODO: maybe better use tag `a`? */}
+          {!user ? (
+            <a href={"/auth"}>Вход</a>
+          ) : (
+            user.name
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function HeaderWithSearch({ user }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchText, changeSearchText] = useState("");
@@ -12,9 +35,8 @@ export default function Header({ user }) {
   useEffect(() => {
     const sort = searchParams.get("sort");
     const genres = searchParams.get("genres");
-    router.push(buildQueryString({sort, genres, search: searchText}))
+    router.push(buildQueryString({ sort, genres, search: searchText }));
   }, [searchText]);
-
 
   return (
     <div>
@@ -37,13 +59,12 @@ export default function Header({ user }) {
         <div className="mr-2 self-center">
           {/* TODO: maybe better use tag `a`? */}
           {!user ? (
-            <div onClick={() => router.push("/auth")}>Вход</div>
+            <a href={"/auth"}>Вход</a>
           ) : (
             user.name
           )}
         </div>
       </div>
-
     </div>
   );
 }
