@@ -21,6 +21,7 @@ const ScoreInput = ({ onChange }) => {
             currentNum === num + 1 ? "bg-red-400" : ""
           }`}
           onClick={() => onStarClick(num + 1)}
+          key={num}
         >
           {num + 1}
         </span>
