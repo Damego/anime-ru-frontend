@@ -36,7 +36,7 @@ export function HeaderWithSearch({ user }) {
     const sort = searchParams.get("sort");
     const genres = searchParams.get("genres");
     router.push(buildQueryString({ sort, genres, search: searchText }));
-  }, [searchText]);
+  }, [searchText, router, searchParams]);
 
   return (
     <div>

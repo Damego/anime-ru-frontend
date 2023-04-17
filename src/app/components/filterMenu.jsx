@@ -56,7 +56,7 @@ export default function FilterMenu({selectGenres, loadedGenres}) {
 
     router.push(queryString);
 
-  }, [selectedGenres, sortType]);
+  }, [selectedGenres, sortType, router, searchParams]);
 
   return (
     <div
